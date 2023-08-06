@@ -44,9 +44,9 @@
 //! cargo run -- --server_url localhost://8080
 //! ```
 
-use std::{collections::BTreeMap, env, fmt::Display, fs::File};
+use std::{collections::BTreeMap, env};
 
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use serde::{de::DeserializeOwned};
 
 use serde_json::Value;
 
