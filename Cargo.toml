@@ -4,7 +4,8 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Tadeo Hepperle"]
 homepage = "https://github.com/tadeohepperle/from_env"
-
+license = "MIT"
+description = "Populate structs with values given by .env file or CLI arguments"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
