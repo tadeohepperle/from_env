@@ -10,7 +10,7 @@ pub trait FromEnv: Sized {
 
 impl<T> FromEnv for T
 where
-    T: Default + DeserializeOwned,
+    T: DeserializeOwned,
 {
     fn from_env() -> Result<Self, serde_json::Error> {
         let kv = kv_from_dotenv_and_env();
@@ -43,7 +43,7 @@ fn kv_from_dotenv() -> BTreeMap<String, String> {
                 None
             } else {
                 let key = split_eq[0].trim();
-                let val = split_eq[1].trim();
+                let val = split_eq[1].trim().trim_matches('\'').trim_matches('"');
                 if key.is_empty() || val.is_empty() {
                     None
                 } else {
@@ -66,10 +66,13 @@ fn kv_from_env() -> BTreeMap<String, String> {
                 kv.insert(k, "true".to_string());
             }
             // set key:
-            kcache = Some(a[2..].to_string());
+            kcache = Some(a[2..].trim_matches('\'').trim_matches('"').to_string());
         } else {
             if let Some(k) = k {
-                kv.insert(k, a);
+                kv.insert(
+                    k,
+                    a.as_str().trim_matches('\'').trim_matches('"').to_string(),
+                );
             } else {
                 // ignore values without key
             }
